@@ -4,7 +4,7 @@
 #include "matrix.h"
 #include "ml6.h"
 
-#define AMBIENT 0
+#define AMBIENT_C 0
 #define DIFFUSE 1
 #define SPECULAR 2
 #define LOCATION 0
@@ -20,7 +20,6 @@ color calculate_ambient(color alight, double *areflect );
 color calculate_diffuse(double light[2][3], double *dreflect, double *normal, double dp );
 color calculate_specular(double light[2][3], double *sreflect, double *view, double *normal, double dp );
 void limit_color( color * c );
-// color limit85(color c);
 
 //vector functions
 void normalize( double *vector );
