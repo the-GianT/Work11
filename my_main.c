@@ -52,7 +52,14 @@
 void my_main() {
 
   int i;
+  struct matrix *trans; // translation matrix (only holds one translation at a time)
+
+  /*
+    temporary edge matrix, can hold edges or polygons but not both at the same
+    time
+  */
   struct matrix *tmp;
+  
   struct stack *systems;
   screen t;
   zbuffer zb;
@@ -225,13 +232,21 @@ void my_main() {
 	  */
 	  // struct matrix * trans_m;
 
-	  trans_m = make_translate( op[i].op.move.d[0], op[i].op.move.d[1],
-				    op[i].op.move.d[2] );
-	  matrix_mult(systems->data[systems->top], trans_m);
+	  trans = make_translate( op[i].op.move.d[0], op[i].op.move.d[1],
+				  op[i].op.move.d[2] );
+	  matrix_mult(peek(systems), trans);
 
 	  // Replace current top with new top
+	  /*
 	  free_matrix(systems->data[systems->top]);
+	  // pop(systems);
 	  systems->data[systems->top] = trans_m;
+	  */
+	  copy_matrix(trans, peek(systems));
+	  free_matrix(trans);
+	  /*
+	  tmp->lastcol = 0;
+	  */
           break;
         case SCALE:
           printf("Scale: %6.2f %6.2f %6.2f",
