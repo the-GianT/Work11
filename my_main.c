@@ -258,6 +258,7 @@ void my_main() {
             }
           break;
         case ROTATE:
+	  /*
           printf("Rotate: axis: %6.2f degrees: %6.2f",
                  op[i].op.rotate.axis,
                  op[i].op.rotate.degrees);
@@ -265,6 +266,21 @@ void my_main() {
             {
               printf("\tknob: %s",op[i].op.rotate.p->name);
             }
+	  */
+	  theta = op[i].op.rotate.degrees * (M_PI / 180); // convert to radians
+	  if (op[i].op.rotate.axis == 0) // x-axis
+	    trans = make_rotX(theta);
+	  else if (op[i].op.rotate.axis == 1) // y-axis
+	    trans = make_rotY(theta);
+	  else if (op[i].op.rotate.axis == 2) // z-axis
+	    trans = make_rotZ(theta);
+	  else {
+	    printf("Error: Invalid axis argument for rotate; must be x, y, or z\n");
+	    return;
+	  }
+	  matrix_mult(peek(systems), trans);
+	  copy_matrix(trans, peek(systems));
+	  free_matrix(trans);
           break;
         case BASENAME:
           printf("Basename: %s",op[i].op.basename.p->name);
