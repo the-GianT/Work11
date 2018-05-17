@@ -249,6 +249,7 @@ void my_main() {
 	  */
           break;
         case SCALE:
+	  /*
           printf("Scale: %6.2f %6.2f %6.2f",
                  op[i].op.scale.d[0],op[i].op.scale.d[1],
                  op[i].op.scale.d[2]);
@@ -256,6 +257,12 @@ void my_main() {
             {
               printf("\tknob: %s",op[i].op.scale.p->name);
             }
+	  */
+	  trans = make_scale(op[i].op.scale.d[0], op[i].op.scale.d[1],
+			     op[i].op.scale.d[2]);
+	  matrix_mult(peek(systems), trans);
+	  copy_matrix(trans, peek(systems));
+	  free_matrix(trans);
           break;
         case ROTATE:
 	  /*
