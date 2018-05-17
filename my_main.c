@@ -221,6 +221,7 @@ void my_main() {
 
           break;
         case LINE:
+	  /*
           printf("Line: from: %6.2f %6.2f %6.2f to: %6.2f %6.2f %6.2f",
                  op[i].op.line.p0[0],op[i].op.line.p0[1],
                  op[i].op.line.p0[1],
@@ -238,6 +239,14 @@ void my_main() {
             {
               printf("\n\tCS1: %s",op[i].op.line.cs1->name);
             }
+	  */
+	  add_edge(tmp, op[i].op.line.p0[0], op[i].op.line.p0[1],
+                 op[i].op.line.p0[1],
+                 op[i].op.line.p1[0], op[i].op.line.p1[1],
+                 op[i].op.line.p1[1]);
+	  matrix_mult(peek(systems), tmp);
+	  draw_lines(tmp, t, zb, g);
+	  tmp->lastcol = 0;
           break;
         case MESH:
           printf("Mesh: filename: %s",op[i].op.mesh.name);
