@@ -117,26 +117,26 @@ void my_main() {
       switch (op[i].opcode)
         {
         case LIGHT:
-          printf("Light: %s at: %6.2f %6.2f %6.2f",
+          printf("Light: %s at: %6.2f %6.2f %6.2f\n",
                  op[i].op.light.p->name,
                  op[i].op.light.c[0], op[i].op.light.c[1],
                  op[i].op.light.c[2]);
           break;
         case AMBIENT:
-          printf("Ambient: %6.2f %6.2f %6.2f",
+          printf("Ambient: %6.2f %6.2f %6.2f\n",
                  op[i].op.ambient.c[0],
                  op[i].op.ambient.c[1],
                  op[i].op.ambient.c[2]);
           break;
 
         case CONSTANTS:
-          printf("Constants: %s",op[i].op.constants.p->name);
+          printf("Constants: %s\n",op[i].op.constants.p->name);
           break;
         case SAVE_COORDS:
-          printf("Save Coords: %s",op[i].op.save_coordinate_system.p->name);
+          printf("Save Coords: %s\n",op[i].op.save_coordinate_system.p->name);
           break;
         case CAMERA:
-          printf("Camera: eye: %6.2f %6.2f %6.2f\taim: %6.2f %6.2f %6.2f",
+          printf("Camera: eye: %6.2f %6.2f %6.2f\taim: %6.2f %6.2f %6.2f\n",
                  op[i].op.camera.eye[0], op[i].op.camera.eye[1],
                  op[i].op.camera.eye[2],
                  op[i].op.camera.aim[0], op[i].op.camera.aim[1],
@@ -252,11 +252,11 @@ void my_main() {
           printf("Mesh: filename: %s",op[i].op.mesh.name);
           if (op[i].op.mesh.constants != NULL)
             {
-              printf("\tconstants: %s",op[i].op.mesh.constants->name);
+              printf("\tconstants: %s\n",op[i].op.mesh.constants->name);
             }
           break;
         case SET:
-          printf("Set: %s %6.2f",
+          printf("Set: %s %6.2f\n",
                  op[i].op.set.p->name,
                  op[i].op.set.p->s.value);
           break;
@@ -330,23 +330,23 @@ void my_main() {
 	  free_matrix(trans);
           break;
         case BASENAME:
-          printf("Basename: %s",op[i].op.basename.p->name);
+          printf("Basename: %s\n",op[i].op.basename.p->name);
           break;
         case SAVE_KNOBS:
-          printf("Save knobs: %s",op[i].op.save_knobs.p->name);
+          printf("Save knobs: %s\n",op[i].op.save_knobs.p->name);
           break;
         case TWEEN:
-          printf("Tween: %4.0f %4.0f, %s %s",
+          printf("Tween: %4.0f %4.0f, %s %s\n",
                  op[i].op.tween.start_frame,
                  op[i].op.tween.end_frame,
                  op[i].op.tween.knob_list0->name,
                  op[i].op.tween.knob_list1->name);
           break;
         case FRAMES:
-          printf("Num frames: %4.0f",op[i].op.frames.num_frames);
+          printf("Num frames: %4.0f\n",op[i].op.frames.num_frames);
           break;
         case VARY:
-          printf("Vary: %4.0f %4.0f, %4.0f %4.0f",
+          printf("Vary: %4.0f %4.0f, %4.0f %4.0f\n",
                  op[i].op.vary.start_frame,
                  op[i].op.vary.end_frame,
                  op[i].op.vary.start_val,
@@ -361,27 +361,29 @@ void my_main() {
 	  pop(systems);
           break;
         case GENERATE_RAYFILES:
-          printf("Generate Ray Files");
+          printf("Generate Ray Files\n");
           break;
         case SAVE:
-          printf("Save: %s",op[i].op.save.p->name);
+          // printf("Save: %s",op[i].op.save.p->name);
+	  save_extension(t, op[i].op.save.p->name);
           break;
         case SHADING:
-          printf("Shading: %s",op[i].op.shading.p->name);
+          printf("Shading: %s\n",op[i].op.shading.p->name);
           break;
         case SETKNOBS:
-          printf("Setknobs: %f",op[i].op.setknobs.value);
+          printf("Setknobs: %f\n",op[i].op.setknobs.value);
           break;
         case FOCAL:
-          printf("Focal: %f",op[i].op.focal.value);
+          printf("Focal: %f\n",op[i].op.focal.value);
           break;
         case DISPLAY:
-          printf("Display");
+          // printf("Display");
+	  display(t);
           break;
         }
-      free_matrix(tmp);
-      free_stack(systems);
-      printf("\n");
+      // printf("\n");
     }
+  free_matrix(tmp);
+  free_stack(systems);
 }
 
