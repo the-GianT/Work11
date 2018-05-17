@@ -144,6 +144,7 @@ void my_main() {
 
           break;
         case SPHERE:
+	  /*
           printf("Sphere: %6.2f %6.2f %6.2f r=%6.2f",
                  op[i].op.sphere.d[0],op[i].op.sphere.d[1],
                  op[i].op.sphere.d[2],
@@ -156,9 +157,18 @@ void my_main() {
             {
               printf("\tcs: %s",op[i].op.sphere.cs->name);
             }
+	  */
+	  add_sphere(tmp, op[i].op.sphere.d[0], op[i].op.sphere.d[1],
+		     op[i].op.sphere.d[2],
+		     op[i].op.sphere.r, step_3d);
+	  matrix_mult(peek(systems), tmp);
+	  draw_polygons(tmp, t, zb,
+			view, light, ambient, areflect, dreflect, sreflect);
+	  tmp->lastcol = 0;
 
           break;
         case TORUS:
+	  /*
           printf("Torus: %6.2f %6.2f %6.2f r0=%6.2f r1=%6.2f",
                  op[i].op.torus.d[0],op[i].op.torus.d[1],
                  op[i].op.torus.d[2],
@@ -171,9 +181,18 @@ void my_main() {
             {
               printf("\tcs: %s",op[i].op.torus.cs->name);
             }
+	  */
+	  add_torus(tmp, op[i].op.torus.d[0], op[i].op.torus.d[1],
+		    op[i].op.torus.d[2],
+		    op[i].op.torus.r0, op[i].op.torus.r1, step_3d);
+	  matrix_mult(peek(systems), tmp);
+	  draw_polygons(tmp, t, zb,
+			view, light, ambient, areflect, dreflect, sreflect);
+	  tmp->lastcol = 0;
 
           break;
         case BOX:
+	  /*
           printf("Box: d0: %6.2f %6.2f %6.2f d1: %6.2f %6.2f %6.2f",
                  op[i].op.box.d0[0],op[i].op.box.d0[1],
                  op[i].op.box.d0[2],
@@ -187,6 +206,18 @@ void my_main() {
             {
               printf("\tcs: %s",op[i].op.box.cs->name);
             }
+	  */
+	  add_box(tmp,
+		  op[i].op.box.d0[0],
+		  op[i].op.box.d0[1],
+		  op[i].op.box.d0[2],
+		  op[i].op.box.d1[0],
+		  op[i].op.box.d1[1],
+		  op[i].op.box.d1[2]);
+	  matrix_mult(peek(systems), tmp);
+	  draw_polygons(tmp, t, zb,
+			view, light, ambient, areflect, dreflect, sreflect);
+	  tmp->lastcol = 0;
 
           break;
         case LINE:
