@@ -270,18 +270,12 @@ void my_main() {
               printf("\tknob: %s",op[i].op.move.p->name);
             }
 	  */
-	  // struct matrix * trans_m;
 
 	  trans = make_translate( op[i].op.move.d[0], op[i].op.move.d[1],
 				  op[i].op.move.d[2] );
 	  matrix_mult(peek(systems), trans);
 
 	  // Replace current top with new top
-	  /*
-	  free_matrix(systems->data[systems->top]);
-	  // pop(systems);
-	  systems->data[systems->top] = trans_m;
-	  */
 	  copy_matrix(trans, peek(systems));
 	  free_matrix(trans);
 	  /*
